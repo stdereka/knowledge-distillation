@@ -129,4 +129,7 @@ dmypy.json
 .pyre/
 
 #IDE
-./idea
+./idea/
+
+#Data
+./imagewoof2-320/
