@@ -2,7 +2,7 @@ import torchvision
 from torch import nn
 
 
-def resnet18(n_classes: int, device):
+def resnet18(n_classes: int, device: str):
     resnet = torchvision.models.resnet18(pretrained=True)
 
     for param in resnet.parameters():

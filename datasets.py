@@ -1,6 +1,7 @@
 from torch.utils.data.dataset import Dataset
 from torchvision import transforms
 from sklearn.preprocessing import LabelEncoder
+from PIL import Image
 
 
 class Imagewoof(Dataset):
