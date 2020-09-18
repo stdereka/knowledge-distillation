@@ -2,17 +2,23 @@ from torch.utils.data.dataset import Dataset
 from torchvision import transforms
 from sklearn.preprocessing import LabelEncoder
 from PIL import Image
+import numpy as np
 
 
 class Imagewoof(Dataset):
-    def __init__(self, files: list, label_encoder: LabelEncoder):
+    def __init__(self, files: list, label_encoder: LabelEncoder, teacher_labels=None, size=256):
         self.files = files
 
         self.labels = [path.parent.name for path in self.files]
         self.labels = label_encoder.transform(self.labels)
 
+        if teacher_labels:
+            self.teacher_labels = np.load(teacher_labels)
+        else:
+            self.teacher_labels = None
+
         self.transformations = transforms.Compose([
-                                                   transforms.Resize((256, 256)),
+                                                   transforms.Resize((size, size)),
                                                    transforms.ToTensor(),
                                                    ])
 
@@ -25,7 +31,11 @@ class Imagewoof(Dataset):
 
         image = self.transformations(image)
 
-        return image, label
+        if self.teacher_labels:
+            teacher_label = self.teacher_labels[index]
+            return image, (label, teacher_label)
+        else:
+            return image, label
 
     def __len__(self):
         return len(self.files)
