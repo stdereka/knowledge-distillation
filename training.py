@@ -106,9 +106,14 @@ def predict(model, test_loader, device, logit=False):
         return f.softmax(torch.cat(logits), dim=-1).numpy()
 
 
-def get_distillation_loss(temperature=10, alpha=0.1):
-    def distillation(y, labels, teacher_labels):
+class DistillationLoss:
+    def __init__(self, temperature=10, alpha=0.1):
+        self.temperature = temperature
+        self.alpha = alpha
+
+    def __call__(self, y, labels, teacher_labels):
         cross_entropy_hard = f.cross_entropy(y, labels)
-        cross_entropy_soft = nn.KLDivLoss()(f.log_softmax(y/temperature), f.softmax(teacher_labels/temperature))
-        return alpha*cross_entropy_hard + (1-alpha)*(temperature**2)*cross_entropy_soft
-    return distillation
+        cross_entropy_soft = nn.KLDivLoss()(f.log_softmax(y/self.temperature, dim=-1),
+                                            f.softmax(teacher_labels/self.temperature, dim=-1))
+        loss = self.alpha * cross_entropy_hard + (1 - self.alpha) * (self.temperature ** 2) * cross_entropy_soft
+        return loss
