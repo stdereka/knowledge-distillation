@@ -4,8 +4,8 @@ import numpy as np
 import torch
 
 
-def resnet18(n_classes: int, device: str):
-    resnet = torchvision.models.resnet18(pretrained=True)
+def resnet101_teacher(n_classes: int, device: str):
+    resnet = torchvision.models.resnet101(pretrained=True)
 
     for param in resnet.parameters():
         param.requires_grad = False
@@ -28,12 +28,22 @@ def resnet18(n_classes: int, device: str):
     return resnet
 
 
+def resnet18_student(n_classes: int, device: str):
+    resnet = torchvision.models.resnet101(pretrained=True)
+    in_features = resnet.fc.in_features
+    resnet.fc = nn.Linear(in_features=in_features, out_features=n_classes, bias=True)
+    resnet = resnet.to(device)
+
+    return resnet
+
+
 def get_number_of_params(model, trainable=True):
     if trainable:
         model_parameters = filter(lambda p: p.requires_grad, model.parameters())
     else:
         model_parameters = model.parameters()
     params = sum([np.prod(p.size()) for p in model_parameters])
+
     return params
 
 
