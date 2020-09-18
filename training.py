@@ -3,7 +3,7 @@ from sklearn.metrics import accuracy_score
 import numpy as np
 from torch.utils.data import DataLoader
 from torch import nn
-import torch.nn.functional as F
+import torch.nn.functional as f
 
 
 def fit_epoch(model, train_loader, criterion, optimizer, device):
@@ -90,7 +90,7 @@ def train(train_dataset, val_dataset, model, epochs, batch_size, device, opt, cr
     return history
 
 
-def predict(model, test_loader, device, temp=1):
+def predict(model, test_loader, device, logit=False):
     with torch.no_grad():
         logits = []
 
@@ -100,13 +100,15 @@ def predict(model, test_loader, device, temp=1):
             outputs = model(inputs).cpu()
             logits.append(outputs)
 
-    probs = nn.functional.softmax(torch.cat(logits) / temp, dim=-1).numpy()
-    return probs
+    if logit:
+        return torch.cat(logits).numpy()
+    else:
+        return f.softmax(torch.cat(logits), dim=-1).numpy()
 
 
 def get_distillation_loss(temperature=10, alpha=0.1):
     def distillation(y, labels, teacher_labels):
-        cross_entropy_hard = F.cross_entropy(y, labels)
-        cross_entropy_soft = nn.KLDivLoss()(F.log_softmax(y/temperature), F.softmax(teacher_labels/temperature))
+        cross_entropy_hard = f.cross_entropy(y, labels)
+        cross_entropy_soft = nn.KLDivLoss()(f.log_softmax(y/temperature), f.softmax(teacher_labels/temperature))
         return alpha*cross_entropy_hard + (1-alpha)*(temperature**2)*cross_entropy_soft
     return distillation
