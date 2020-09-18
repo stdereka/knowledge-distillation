@@ -1,5 +1,6 @@
 import torchvision
 from torch import nn
+import numpy as np
 
 
 def resnet18(n_classes: int, device: str):
@@ -24,3 +25,9 @@ def resnet18(n_classes: int, device: str):
     resnet = resnet.to(device)
 
     return resnet
+
+
+def get_number_of_params(model):
+    model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+    params = sum([np.prod(p.size()) for p in model_parameters])
+    return params
