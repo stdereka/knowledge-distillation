@@ -28,9 +28,36 @@ def resnet101_teacher(n_classes: int, device: str):
     return resnet
 
 
-def resnet18_student(n_classes: int, device: str):
+def resnet18_student2(n_classes: int, device: str):
     resnet = torchvision.models.resnet18(pretrained=True)
+
+    for param in resnet.parameters():
+        param.requires_grad = False
+
     in_features = resnet.fc.in_features
+
+    header = nn.Sequential(
+        nn.Linear(in_features, 128),
+        nn.ReLU(),
+        nn.Linear(128, 128),
+        nn.ReLU(),
+        nn.Linear(128, n_classes)
+    )
+
+    resnet.fc = header
+    resnet = resnet.to(device)
+
+    return resnet
+
+
+def resnet18_student1(n_classes: int, device: str):
+    resnet = torchvision.models.resnet18(pretrained=True)
+
+    for param in resnet.parameters():
+        param.requires_grad = False
+
+    in_features = resnet.fc.in_features
+
     resnet.fc = nn.Linear(in_features=in_features, out_features=n_classes, bias=True)
     resnet = resnet.to(device)
 
