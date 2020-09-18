@@ -13,16 +13,17 @@ def fit_epoch(model, train_loader, criterion, optimizer, device):
     predicted = []
     for inputs, labels in train_loader:
         inputs = inputs.to(device)
-        labels = labels.to(device)
+        for i in range(len(labels)):
+            labels[i] = labels[i].to(device)
         optimizer.zero_grad()
 
         outputs = model(inputs)
-        loss = criterion(outputs, labels)
+        loss = criterion(outputs, *labels)
         loss.backward()
         optimizer.step()
         preds = torch.argmax(outputs, 1)
 
-        ground.append(labels.cpu())
+        ground.append(labels[0].cpu())
         predicted.append(preds.cpu())
 
         running_loss += loss.item() * inputs.size(0)
@@ -46,14 +47,15 @@ def eval_epoch(model, val_loader, criterion, device):
     predicted = []
     for inputs, labels in val_loader:
         inputs = inputs.to(device)
-        labels = labels.to(device)
+        for i in range(len(labels)):
+            labels[i] = labels[i].to(device)
 
         with torch.set_grad_enabled(False):
             outputs = model(inputs)
-            loss = criterion(outputs, labels)
+            loss = criterion(outputs, *labels)
             preds = torch.argmax(outputs, 1)
 
-        ground.append(labels.cpu())
+        ground.append(labels[0].cpu())
         predicted.append(preds.cpu())
 
         running_loss += loss.item() * inputs.size(0)

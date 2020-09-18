@@ -15,7 +15,7 @@ class Imagewoof(Dataset):
         if teacher_labels:
             self.teacher_labels = np.load(teacher_labels)
         else:
-            self.teacher_labels = None
+            self.teacher_labels = []
 
         self.transformations = transforms.Compose([
                                                    transforms.Resize((size, size)),
@@ -31,11 +31,11 @@ class Imagewoof(Dataset):
 
         image = self.transformations(image)
 
-        if self.teacher_labels:
+        if len(self.teacher_labels) > 0:
             teacher_label = self.teacher_labels[index]
             return image, (label, teacher_label)
         else:
-            return image, label
+            return image, (label, )
 
     def __len__(self):
         return len(self.files)
