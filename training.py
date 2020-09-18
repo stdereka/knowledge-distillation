@@ -116,4 +116,4 @@ class DistillationLoss:
         cross_entropy_soft = nn.KLDivLoss()(f.log_softmax(y/self.temperature, dim=-1),
                                             f.softmax(teacher_labels/self.temperature, dim=-1))
         loss = self.alpha * cross_entropy_hard + (1 - self.alpha) * (self.temperature ** 2) * cross_entropy_soft
-        return loss
+        return loss.type(torch.float32)
