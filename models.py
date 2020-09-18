@@ -51,7 +51,7 @@ def get_conv_block(in_channels, out_channels):
 def get_fc_block(n_in, n_out):
     block = nn.Sequential(
         nn.Linear(n_in, n_out),
-        nn.BatchNorm1d(n_out),
+        # nn.BatchNorm1d(n_out),
         nn.ReLU()
     )
 
