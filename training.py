@@ -113,10 +113,7 @@ class DistillationLoss:
 
     def __call__(self, y, labels, teacher_labels):
         cross_entropy_hard = f.cross_entropy(y.double(), labels.long())
-
-        log_prob = f.log_softmax(y.double() / self.temperature, dim=-1)
-        target = f.softmax(teacher_labels.double() / self.temperature, dim=-1)
-        cross_entropy_soft = -(target * log_prob).sum() / (y.shape[0] * y.shape[1])
-
+        cross_entropy_soft = nn.KLDivLoss()(f.log_softmax(y.double()/self.temperature, dim=-1),
+                                            f.softmax(teacher_labels.double()/self.temperature, dim=-1))
         loss = self.alpha * cross_entropy_hard + (1 - self.alpha) * (self.temperature ** 2) * cross_entropy_soft
         return loss.double()
