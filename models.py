@@ -29,7 +29,7 @@ def resnet101_teacher(n_classes: int, device: str):
 
 
 def resnet18_student(n_classes: int, device: str):
-    resnet = torchvision.models.resnet101(pretrained=True)
+    resnet = torchvision.models.resnet18(pretrained=True)
     in_features = resnet.fc.in_features
     resnet.fc = nn.Linear(in_features=in_features, out_features=n_classes, bias=True)
     resnet = resnet.to(device)
