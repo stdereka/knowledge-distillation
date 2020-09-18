@@ -27,7 +27,10 @@ def resnet18(n_classes: int, device: str):
     return resnet
 
 
-def get_number_of_params(model):
-    model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+def get_number_of_params(model, trainable=True):
+    if trainable:
+        model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+    else:
+        model_parameters = model.parameters()
     params = sum([np.prod(p.size()) for p in model_parameters])
     return params
