@@ -74,22 +74,20 @@ def train(train_dataset, val_dataset, model, epochs, batch_size, device):
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
     history = []
-    log_template = "train_loss: {t_loss:0.4f}, val_loss: {v_loss:0.4f}, train_acc: {t_acc:0.4f}, val_acc: {v_acc:0.4f}"
+    log_template = "Epoch: {ep}, train_loss: {t_loss:0.4f}, val_loss: {v_loss:0.4f}, " \
+                   "train_acc: {t_acc:0.4f}, val_acc: {v_acc:0.4f}"
 
-    with tqdm(desc="epoch", total=epochs) as pbar_outer:
-        opt = torch.optim.Adam(model.parameters(), lr=0.001)
+    opt = torch.optim.Adam(model.parameters(), lr=0.001)
 
-        criterion = nn.CrossEntropyLoss()
+    criterion = nn.CrossEntropyLoss()
 
-        for epoch in range(epochs):
-            train_loss, train_acc = fit_epoch(model, train_loader, criterion, opt, device)
+    for epoch in range(epochs):
+        train_loss, train_acc = fit_epoch(model, train_loader, criterion, opt, device)
 
-            val_loss, val_acc = eval_epoch(model, val_loader, criterion, device)
-            history.append((train_loss, train_acc, val_loss, val_acc))
+        val_loss, val_acc = eval_epoch(model, val_loader, criterion, device)
+        history.append([train_loss, train_acc, val_loss, val_acc])
 
-            pbar_outer.update(1)
-            tqdm.write(log_template.format(ep=epoch + 1, t_loss=train_loss, v_loss=val_loss,
-                                           t_acc=train_acc, v_acc=val_acc))
+        print(log_template.format(ep=epoch + 1, t_loss=train_loss, v_loss=val_loss, t_acc=train_acc, v_acc=val_acc))
 
     return history
 
