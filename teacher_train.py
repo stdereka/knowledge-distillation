@@ -2,7 +2,6 @@ import torch
 from sklearn.metrics import accuracy_score
 import numpy as np
 from torch.utils.data import DataLoader
-from tqdm import tqdm
 from torch import nn
 
 
@@ -69,17 +68,13 @@ def eval_epoch(model, val_loader, criterion, device):
     return val_loss, val_acc
 
 
-def train(train_dataset, val_dataset, model, epochs, batch_size, device):
+def train(train_dataset, val_dataset, model, epochs, batch_size, device, opt, criterion):
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
     history = []
     log_template = "Epoch: {ep}, train_loss: {t_loss:0.4f}, val_loss: {v_loss:0.4f}, " \
                    "train_acc: {t_acc:0.4f}, val_acc: {v_acc:0.4f}"
-
-    opt = torch.optim.Adam(model.parameters(), lr=0.001)
-
-    criterion = nn.CrossEntropyLoss()
 
     for epoch in range(epochs):
         train_loss, train_acc = fit_epoch(model, train_loader, criterion, opt, device)
