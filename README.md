@@ -11,5 +11,5 @@
 
 |   Teacher Model   |   Student Model   |  Dataset  | Alpha | T | Accuracy (Distilled) | Accuracy (Only Student) | Code |
 |:-----------------:|:-----------------:|:---------:|:-----:|:-:|:--------------------:|:-----------------------:|:----:|
-| resnet101_teacher | resnet18_student2 | Imagewoof |  0.1  |7.0|                      |                         |      |
+| resnet101_teacher | resnet18_student2 | Imagewoof |  0.1  |7.0|  **0.9247** |    0.9165      |   [link](https://github.com/stdereka/knowledge-distillation/tree/04337ce3037bbfbaed0d0a229cbfbbb235e57b7d)   |
 |                   |                   |           |       |   |                      |                         |      |
