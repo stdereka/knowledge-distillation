@@ -80,15 +80,15 @@ def train(train_dataset, val_dataset, model, epochs, batch_size, device, opt, cr
     log_template = "Epoch: {ep}, train_loss: {t_loss:0.4f}, val_loss: {v_loss:0.4f}, " \
                    "train_acc: {t_acc:0.4f}, val_acc: {v_acc:0.4f}"
 
-    # scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, mode='max', factor=0.3,
-    #                                                        patience=10, verbose=True)
+    scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(opt, mode='max', factor=0.3,
+                                                           patience=10, verbose=True)
 
     for epoch in range(epochs):
 
         train_loss, train_acc = fit_epoch(model, train_loader, criterion, opt, device)
 
         val_loss, val_acc = eval_epoch(model, val_loader, criterion, device)
-        # scheduler.step(val_acc)
+        scheduler.step(val_acc)
 
         history.append([train_loss, train_acc, val_loss, val_acc])
 
