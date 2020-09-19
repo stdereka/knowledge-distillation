@@ -1,13 +1,13 @@
 # knowledge-distillation
 
-This repository contains code for experimenting with knowledge distillation technique initially proposed in the [article](https://arxiv.org/pdf/1503.02531.pdf). By now pipelines for data processing and model training are implemented for [Imagewoof](https://github.com/fastai/imagenette#imagewoof) dataset, but the framework is compatible with other datasets. Each experiment corresponds to one commit in the repository. This way the code for reproducing the results is easily acceseble for every experiment. The most significant results are collected in [Experiment takeaway](https://github.com/stdereka/knowledge-distillation#experiments) section of this README.
+This repository contains code for experimenting with knowledge distillation NN compression technique. It was initially proposed in the [article](https://arxiv.org/pdf/1503.02531.pdf). By now pipelines for data processing and model training are implemented for [Imagewoof](https://github.com/fastai/imagenette#imagewoof) dataset, but the framework is compatible with other datasets. Each experiment corresponds to one commit in the repository. This way the code for reproducing the results is easily acceseble for every experiment. The most significant results are collected in [Experiment takeaway](#experiment-takeaway) section of this README.
 
 ## Contents
 
 * `datasets.py` - contains code to load data in a pytorch compatible format
 * `models.py` - models I use in my experiments and distillation loss from the article
 * `training.py` - train and evaluation pipelines
-* `experiments.ipynb` - contains code of current experiment. Can be launched in [Google Colab](https://colab.research.google.com/)
+* `experiments.ipynb` - contains code, hyperparams and graphics for current experiment. Can be launched in [Google Colab](https://colab.research.google.com/)
 
 ## Requirements
 
