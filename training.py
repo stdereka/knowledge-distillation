@@ -4,6 +4,7 @@ import numpy as np
 from torch.utils.data import DataLoader
 from torch import nn
 import torch.nn.functional as f
+from tqdm import tqdm
 
 
 def fit_epoch(model, train_loader, criterion, optimizer, device):
@@ -12,7 +13,7 @@ def fit_epoch(model, train_loader, criterion, optimizer, device):
 
     ground = []
     predicted = []
-    for inputs, labels in train_loader:
+    for inputs, labels in tqdm(train_loader):
         inputs = inputs.to(device)
         for i in range(len(labels)):
             labels[i] = labels[i].to(device)
@@ -46,7 +47,7 @@ def eval_epoch(model, val_loader, criterion, device):
 
     ground = []
     predicted = []
-    for inputs, labels in val_loader:
+    for inputs, labels in tqdm(val_loader):
         inputs = inputs.to(device)
         for i in range(len(labels)):
             labels[i] = labels[i].to(device)
@@ -113,7 +114,11 @@ class DistillationLoss:
 
     def __call__(self, y, labels, teacher_labels):
         cross_entropy_hard = f.cross_entropy(y.double(), labels.long())
-        cross_entropy_soft = nn.KLDivLoss()(f.log_softmax(y.double()/self.temperature, dim=-1),
-                                            f.softmax(teacher_labels.double()/self.temperature, dim=-1))
+
+        # H(p, q)=H(p)+D_{KL}(p || q), the term H(p) doesn't make any contribution to the gradient
+        # Crossentropy can be replaced by KLDivLoss()
+        cross_entropy_soft = nn.KLDivLoss()(f.log_softmax(y.double()/self.temperature, dim=1),
+                                            f.softmax(teacher_labels.double()/self.temperature, dim=1))
+
         loss = self.alpha * cross_entropy_hard + (1 - self.alpha) * (self.temperature ** 2) * cross_entropy_soft
         return loss.double()
