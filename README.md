@@ -1,6 +1,6 @@
 # knowledge-distillation
 
-This repository contains code for experimenting with knowledge distillation NN compression technique. It was initially proposed in the [article](https://arxiv.org/pdf/1503.02531.pdf). By now pipelines for data processing and model training are implemented for [Imagewoof](https://github.com/fastai/imagenette#imagewoof) dataset, but the framework is compatible with other datasets. Each experiment corresponds to one commit in the repository. This way the code for reproducing the results is easily acceseble for every experiment. The most significant results are collected in [Experiment takeaway](#experiment-takeaway) section of this README.
+This repository contains code for experimenting with knowledge distillation NN compression technique. It was initially proposed in the [article](https://arxiv.org/pdf/1503.02531.pdf). By now pipelines for data processing and model training are implemented for [Imagewoof](https://github.com/fastai/imagenette#imagewoof) dataset, but the framework is compatible with other datasets. Each experiment corresponds to one commit in the repository. This way the code for reproducing the results is easily accesible for every experiment. The most significant results are collected in [Experiment takeaway](#experiment-takeaway) section of this README.
 
 ## Contents
 
