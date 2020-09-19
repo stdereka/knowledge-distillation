@@ -4,7 +4,6 @@ import numpy as np
 from torch.utils.data import DataLoader
 from torch import nn
 import torch.nn.functional as f
-from tqdm import tqdm_notebook
 
 
 def fit_epoch(model, train_loader, criterion, optimizer, device):
@@ -13,7 +12,7 @@ def fit_epoch(model, train_loader, criterion, optimizer, device):
 
     ground = []
     predicted = []
-    for inputs, labels in tqdm_notebook(train_loader):
+    for inputs, labels in train_loader:
         inputs = inputs.to(device)
         for i in range(len(labels)):
             labels[i] = labels[i].to(device)
@@ -47,7 +46,7 @@ def eval_epoch(model, val_loader, criterion, device):
 
     ground = []
     predicted = []
-    for inputs, labels in tqdm_notebook(val_loader):
+    for inputs, labels in val_loader:
         inputs = inputs.to(device)
         for i in range(len(labels)):
             labels[i] = labels[i].to(device)
