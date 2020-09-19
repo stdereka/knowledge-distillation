@@ -20,7 +20,7 @@ This repository contains code for experimenting with knowledge distillation NN c
 
 |   Teacher Model   |   Student Model   |  Dataset  | Alpha | T | Accuracy (Distilled) | Accuracy (Only Student) | Code |
 |:-----------------:|:-----------------:|:---------:|:-----:|:-:|:--------------------:|:-----------------------:|:----:|
-| resnet101_teacher | resnet18_student2 | Imagewoof |  0.05 |7.0|  **0.9247** |    0.9165      |   [link](https://github.com/stdereka/knowledge-distillation/tree/04337ce3037bbfbaed0d0a229cbfbbb235e57b7d)   |
+| resnet152_teacher | resnet18_student2 | Imagewoof |  0.1 |7.0|  **0.9305** |    0.9201      |   [link](https://github.com/stdereka/knowledge-distillation/tree/2df711f1d5cf27ed8c8d19dcfa3779529af92a43)   |
 |resnet101_teacher|resnet18_student2|Imagewoof|0.05|7.0|**0.9277**|0.9201| [link](https://github.com/stdereka/knowledge-distillation/tree/d6c45027457de12ae8a5575ff969e70175af708f) |
 |resnet101_teacher|resnet18_student2|Imagewoof|0.1|7.0|**0.9308**|0.9201| [link](https://github.com/stdereka/knowledge-distillation/tree/8e4e5f609b095c2a57c59261cdd54501eedb9e15) |
 
