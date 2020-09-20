@@ -1,3 +1,6 @@
+"""
+This module contains classes for datasets compatible with Pytorch
+"""
 from torch.utils.data.dataset import Dataset
 from torchvision import transforms
 from sklearn.preprocessing import LabelEncoder
@@ -6,9 +9,20 @@ import numpy as np
 
 
 class Imagewoof(Dataset):
+    """
+    https://github.com/fastai/imagenette#imagewoof
+    """
     def __init__(self, files: list, label_encoder: LabelEncoder, teacher_labels=None, size=256, augs=False):
+        """
+        :param files: list of files to include in dataset
+        :param label_encoder: sklearn label encoder for mapping class labels
+        :param teacher_labels: path to dark knowledge of teacher model
+        :param size: size of a picture in a dataset
+        :param augs: use augmentations
+        """
         self.files = files
 
+        # Class label is a parent directory
         self.labels = [path.parent.name for path in self.files]
         self.labels = label_encoder.transform(self.labels)
 
@@ -50,6 +64,7 @@ class Imagewoof(Dataset):
             teacher_label = self.teacher_labels[index]
             return image, (label, teacher_label)
         else:
+            # Returning in this format allows to use the same code for training with and without teacher model
             return image, (label, )
 
     def __len__(self):

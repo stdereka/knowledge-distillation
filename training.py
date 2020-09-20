@@ -1,3 +1,6 @@
+"""
+Pipelines for model training and evaluation
+"""
 import torch
 from sklearn.metrics import accuracy_score
 import numpy as np
@@ -6,7 +9,17 @@ from torch import nn
 import torch.nn.functional as f
 
 
-def fit_epoch(model, train_loader, criterion, optimizer, device):
+def fit_epoch(model: nn.Module, train_loader: DataLoader,
+              criterion, optimizer, device: str) -> (float, float):
+    """
+    This function performs one epoch training
+    :param model: pytorch model
+    :param train_loader: pytorch data loader
+    :param criterion: loss function to optimize
+    :param optimizer: optimizer to use
+    :param device: device to train on
+    :return: loss and accuracy on train set
+    """
     running_loss = 0.0
     processed_data = 0
 
@@ -39,7 +52,16 @@ def fit_epoch(model, train_loader, criterion, optimizer, device):
     return train_loss, train_acc
 
 
-def eval_epoch(model, val_loader, criterion, device):
+def eval_epoch(model: nn.Module, val_loader: DataLoader,
+               criterion, device: str) -> (float, float):
+    """
+    This function performs one epoch evaluation
+    :param model: pytorch model
+    :param val_loader: pytorch data loader
+    :param criterion: loss function
+    :param device: device to train on
+    :return: loss and accuracy on validation set
+    """
     model.eval()
     running_loss = 0.0
     processed_size = 0
@@ -71,7 +93,20 @@ def eval_epoch(model, val_loader, criterion, device):
     return val_loss, val_acc
 
 
-def train(train_dataset, val_dataset, model, epochs, batch_size, device, opt, criterion):
+def train(train_dataset, val_dataset, model, epochs: int,
+          batch_size: int, device: str, opt, criterion) -> np.array:
+    """
+    Runs training loop
+    :param train_dataset: training set
+    :param val_dataset: validation set
+    :param model: pytorch model
+    :param epochs: number of epochs
+    :param batch_size: size of batch
+    :param device: device to train on
+    :param opt: optimizer to use
+    :param criterion: loss function
+    :return: numpy array with loss and accuracy values (each row corresponds to one epoch)
+    """
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=4)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=4)
 
@@ -96,7 +131,16 @@ def train(train_dataset, val_dataset, model, epochs, batch_size, device, opt, cr
     return np.array(history)
 
 
-def predict(model, test_loader, device, logit=False):
+def predict(model: nn.Module, test_loader: DataLoader,
+            device: str, logit=False) -> np.array:
+    """
+    Runs prediction on test dataset
+    :param model: pytorch model
+    :param test_loader: test dataset pytorch loader
+    :param device: device to use (cpu, gpu etc.)
+    :param logit: predict logit (True) or probabilities
+    :return: array with predictions
+    """
     with torch.no_grad():
         logits = []
 
@@ -113,6 +157,9 @@ def predict(model, test_loader, device, logit=False):
 
 
 class DistillationLoss:
+    """
+    Class for distillation loss from the article https://arxiv.org/pdf/1503.02531.pdf
+    """
     def __init__(self, temperature=10, alpha=0.1):
         self.temperature = temperature
         self.alpha = alpha
