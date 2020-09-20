@@ -25,8 +25,8 @@ class Imagewoof(Dataset):
         if augs:
             self.augs = transforms.Compose([
                 transforms.RandomApply([
-                    transforms.ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0.1),
-                    transforms.RandomAffine(degrees=(-30, 30), scale=(0.75, 1.25))
+                    transforms.ColorJitter(brightness=0.2, contrast=0.2),
+                    transforms.RandomAffine(degrees=(-30, 30), scale=(0.75, 1.5))
                 ], p=0.7),
                 transforms.RandomHorizontalFlip(p=0.5),
                 transforms.RandomPerspective(p=0.5)
