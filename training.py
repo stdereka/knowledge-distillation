@@ -27,8 +27,11 @@ def fit_epoch(model: nn.Module, train_loader: DataLoader,
     predicted = []
     for inputs, labels in train_loader:
         inputs = inputs.to(device)
+
+        # Labels are multiple when distillation loss is used
         for i in range(len(labels)):
             labels[i] = labels[i].to(device)
+
         optimizer.zero_grad()
 
         outputs = model(inputs)
@@ -70,6 +73,8 @@ def eval_epoch(model: nn.Module, val_loader: DataLoader,
     predicted = []
     for inputs, labels in val_loader:
         inputs = inputs.to(device)
+
+        # Labels are multiple when distillation loss is used
         for i in range(len(labels)):
             labels[i] = labels[i].to(device)
 
