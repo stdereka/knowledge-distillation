@@ -18,6 +18,65 @@ This repository contains code for experimenting with knowledge distillation NN c
 
 ## Experiment takeaway
 
+### Optimal temperature search
+
+<table>
+<thead>
+  <tr>
+    <th>Teacher Model</th>
+    <th>Student Model</th>
+    <th>Dataset</th>
+    <th>Alpha</th>
+    <th>T</th>
+    <th>Accuracy<br>(Distilled)</th>
+    <th>Accuracy<br>(No Teacher)</th>
+    <th>Code</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td rowspan="8">resnet101_teacher</td>
+    <td rowspan="8">resnet18_student2</td>
+    <td rowspan="8">Imagewoof</td>
+    <td rowspan="8">0.1</td>
+    <td>1.0</td>
+    <td>0.9253</td>
+    <td rowspan="8">0.9262</td>
+    <td rowspan="8"><a href="https://github.com/stdereka/knowledge-distillation/tree/7deaae57bd9f61f70f38f74cf07f5714a6c43932" target="_blank" rel="noopener noreferrer">link</a></td>
+  </tr>
+  <tr>
+    <td>2.0</td>
+    <td>0.9284</td>
+  </tr>
+  <tr>
+    <td>3.0</td>
+    <td>0.9298</td>
+  </tr>
+  <tr>
+    <td>4.0</td>
+    <td><strong>0.9306</strong></td>
+  </tr>
+  <tr>
+    <td>5.0</td>
+    <td>0.9303</td>
+  </tr>
+  <tr>
+    <td>6.0</td>
+    <td>0.9295</td>
+  </tr>
+  <tr>
+    <td>7.0</td>
+    <td>0.9284</td>
+  </tr>
+  <tr>
+    <td>8.0</td>
+    <td>0.9284</td>
+  </tr>
+</tbody>
+</table>
+
+### Early experiments
+
 |   Teacher Model   |   Student Model   |  Dataset  | Alpha | T | Accuracy (Distilled) | Accuracy (Only Student) | Code |
 |:-----------------:|:-----------------:|:---------:|:-----:|:-:|:--------------------:|:-----------------------:|:----:|
 | resnet152_teacher | resnet18_student2 | Imagewoof |  0.1 |7.0|  **0.9305** |    0.9201      |   [link](https://github.com/stdereka/knowledge-distillation/tree/2df711f1d5cf27ed8c8d19dcfa3779529af92a43)   |
