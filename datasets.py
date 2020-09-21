@@ -8,11 +8,8 @@ from PIL import Image
 import numpy as np
 
 
-class Imagewoof(Dataset):
-    """
-    https://github.com/fastai/imagenette#imagewoof
-    """
-    def __init__(self, files: list, label_encoder: LabelEncoder, teacher_labels=None, size=256, augs=False):
+class ImageDataset(Dataset):
+    def __init__(self, files: list, label_encoder: LabelEncoder, teacher_labels=None, size=128, augs=False):
         """
         :param files: list of files to include in dataset
         :param label_encoder: sklearn label encoder for mapping class labels
