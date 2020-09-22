@@ -14,7 +14,7 @@ def resnet101_teacher(n_classes: int, device: str) -> nn.Module:
     :param device: device to train on
     :return: pytorch model
     """
-    resnet = torchvision.models.resnet101(pretrained=True)
+    resnet = torchvision.models.resnet101(pretrained=True, progress=False)
 
     # Freeze pretrained params
     for param in resnet.parameters():
@@ -46,7 +46,7 @@ def resnet18_student2(n_classes: int, device: str):
     :param device: device to train on
     :return: pytorch model
     """
-    resnet = torchvision.models.resnet18(pretrained=True)
+    resnet = torchvision.models.resnet18(pretrained=True, progress=False)
 
     # Freeze pretrained params
     for param in resnet.parameters():
@@ -76,7 +76,7 @@ def resnet18_student1(n_classes: int, device: str):
     :param device: device to train on
     :return: pytorch model
     """
-    resnet = torchvision.models.resnet18(pretrained=True)
+    resnet = torchvision.models.resnet18(pretrained=True, progress=False)
 
     # Freeze pretrained params
     for param in resnet.parameters():
@@ -97,7 +97,7 @@ def resnet152_teacher(n_classes: int, device: str):
     :param device: device to train on
     :return: pytorch model
     """
-    resnet = torchvision.models.resnet152(pretrained=True)
+    resnet = torchvision.models.resnet152(pretrained=True, progress=False)
 
     # Freeze pretrained params
     for param in resnet.parameters():
