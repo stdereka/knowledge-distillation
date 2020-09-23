@@ -23,7 +23,7 @@ There are two ways of running the code:
 
 1. In [Google Colab](https://colab.research.google.com/). To start upload `report.ipynb` file to Colab.
 
-2. On local machine. Fullfill [requirements](#requirements) and install Python packages:
+2. On local machine. Fulfil [requirements](#requirements) and install Python packages:
 
         git clone https://github.com/stdereka/knowledge-distillation.git
         cd knowledge-distillation
