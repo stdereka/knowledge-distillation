@@ -7,7 +7,8 @@ This repository contains code for experimenting with knowledge distillation NN c
 * `datasets.py` - contains code to load data in a pytorch compatible format
 * `models.py` - models I use in my experiments and distillation loss from the article
 * `training.py` - train and evaluation pipelines
-* `experiments.ipynb` - contains code, hyperparams and graphics for current experiment. Can be launched in [Google Colab](https://colab.research.google.com/)
+* `experiments.ipynb` - contains code, hyperparams and graphics for current experiment
+* `report.ipynb` - a detailed explanation of my recent experiments (with visualisation). Can be launched in [Google Colab](https://colab.research.google.com/)
 
 ## Requirements
 
@@ -15,6 +16,18 @@ This repository contains code for experimenting with knowledge distillation NN c
 * CUDA 10.1
 * Nvidia Driver 418.67
 * Python packages listed in `requirements.txt`
+
+## Install
+
+There are two ways of running the code:
+
+1. In [Google Colab](https://colab.research.google.com/). To start upload `report.ipynb` file to Colab.
+
+2. On local machine. Fullfill [requirements](#requirements) and install Python packages:
+
+        git clone https://github.com/stdereka/knowledge-distillation.git
+        cd knowledge-distillation
+        pip install -r requirements.txt
 
 ## Experiment takeaway
 
