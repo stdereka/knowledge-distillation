@@ -90,7 +90,8 @@ There are two ways of running the code:
 
 ## References
 
-1. https://arxiv.org/pdf/1503.02531.pdf
-2. https://arxiv.org/pdf/1812.01819.pdf
-3. https://github.com/peterliht/knowledge-distillation-pytorch
-4. https://github.com/fastai/imagenette#imagewoof
+1. [Distilling the Knowledge in a Neural Network](https://arxiv.org/pdf/1503.02531.pdf)
+2. [An Embarrassingly Simple Approach for Knowledge Distillation](https://arxiv.org/pdf/1812.01819.pdf)
+3. [Experiments on CIFAR-10 and MNIST datasets](https://github.com/peterliht/knowledge-distillation-pytorch)
+4. [Imagewoof dataset](https://github.com/fastai/imagenette#imagewoof)
+5. [Awesome Knowledge Distillation](https://github.com/dkozlov/awesome-knowledge-distillation)
